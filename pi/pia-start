@@ -1,0 +1,39 @@
+#!/bin/bash
+
+FILENAME=pia-start
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+
+if [ pia-status -s -eq 0 ]; then
+    read -p "Attach to existing session? [y/n] "ATTACH
+    if [[ $ATTACH == "Y" || $ATTACH == "y" ]]; then
+        tmux attach-session -t pia
+        exit 0
+    fi
+    exit 1
+fi
+
+$1 || { echo "USAGE: $FILENAME /etc/openvpn/<server>  (ie. /etc/openvpn/<server>)"; exit; }
+
+echo "Adding ip rule and ip route..."
+ip rule add table 128 from $PI_IP
+ip route add table 128 to 137.22.237.0/24 dev eth0
+ip route add table 128 default via 137.22.237.254
+echo "Attempting VPN connection..."
+
+RESOLV="/etc/resolv.conf"
+DEF_RESOLV="/etc/resolv.conf.default"
+PIA_RESOLV="/etc/resolv.conf.pia"
+
+find $DEF_RESOLV > /dev/null || cp $RESOLV $DEF_RESOLV
+rm $RESOLV
+ln -s $PIA_RESOLV $RESOLV
+
+tmux new-session -s pia "openvpn $1"
+
+pia-status -s && { echo "Failed to establish VPN connection."; exit 1; }
+
+echo "Successfully established VPN connection in tmux pia session."
+
+exit 0

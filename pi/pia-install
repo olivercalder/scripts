@@ -1,0 +1,26 @@
+#!/bin/bash
+
+FILENAME=pia-install
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+
+apt-get update
+apt-get upgrade
+apt-get install openvpn
+cd /etc/openvpn
+wget https://privateinternetaccess.com/openvpn/openvpn.zip
+unzip openvpn.zip
+
+for PIASRV in $(ls -1 | grep .ovpn); do
+    echo "auth-user-pass /etc/openvpn/pass.txt" >> $PIASRV;
+done
+
+echo "nameserver 209.222.18.218" > /etc/resolv.conf.pia
+echo "nameserver 209.222.18.222" >> /etc/resolv.conf.pia
+chattr +i /etc/resolve.conf.pia
+
+echo "Create pass.txt in /etc/openvpn containing username and password."
+echo "Each should be on its own line with no leading or trailing characters."
+
+exit 0

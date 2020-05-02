@@ -1,0 +1,8 @@
+#!/bin/bash
+
+tmux has-session -t pia 2> /dev/null
+STATUS=$?
+
+[[ $1 != "-s" ]] && { [ $STATUS -eq 1 ] && echo "No tmux PIA session found." || echo "PIA running in tmux pia session."; }
+
+exit $STATUS

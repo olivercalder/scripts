@@ -1,0 +1,22 @@
+#!/bin/bash
+
+FILENAME=pia-stop
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+
+pia-status && exit 1
+
+killall openvpn
+
+RESOLV="/etc/resolv.conf"
+DEF_RESOLV="/etc/resolv.conf.default"
+PIA_RESOLV="/etc/resolv.conf.pia"
+
+find $DEF_RESOLV && diff $RESOLV $DEF_RESOLV && { diff $RESOLV $PIA_RESOLV || { rm $RESOLV; ln -s $DEF_RESOLV $RESOLV; } }
+
+STATUS=pia-status -s 
+
+[ $STATUS -eq 1 ] && echo "Successfully terminated tmux pia session." || "Failed to terminate tmux pia session."
+
+return $STATUS
