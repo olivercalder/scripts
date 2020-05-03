@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILENAME=scp-pi
+
+if [ ! $2 ]; then
+    echo "USAGE: $FILENAME pi_dest src"
+    exit
+fi
+
+scp $2 pi@$PI_IP $PI_IP:~/$1

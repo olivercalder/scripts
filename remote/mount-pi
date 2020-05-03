@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/pi
+sudo sshfs -o allow_other pi@$PI_IP:/ /mnt/pi

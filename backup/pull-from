@@ -1,0 +1,44 @@
+#!/bin/bash
+
+FILENAME=pull-from
+
+if [ ! $1 ] ; then
+    echo "USAGE: $FILENAME src [-d]"
+    exit
+fi
+
+Z=""
+if [ echo $1 | grep '@' ]; then
+    Z="z";
+fi
+
+$DEL=""
+if [[ $2 == "-d" ]]; then
+    $DEL="--delete";
+fi
+
+echo &&
+echo &&
+echo "Pulling coding/ from $1" &&
+echo &&
+rsync -ahu$Z $DEL --info=progress2 $1/coding/ ~/coding/ &&
+echo &&
+echo &&
+echo "Pulling Documents/ from $1" &&
+echo &&
+rsync -ahu$Z $DEL --info=progress2 $1/Documents/ ~/Documents/ &&
+echo &&
+echo &&
+echo "Pulling Music/ from $1" &&
+echo &&
+rsync -ahu$Z $DEL --info=progress2 $1/Music/ ~/Music/ &&
+echo &&
+echo &&
+echo "Pulling Pictures/ from $1" &&
+echo &&
+rsync -ahu$Z $DEL --info=progress2 $1/Pictures/~/Pictures/  &&
+echo &&
+echo &&
+echo "Pulling Videos/ from $1" &&
+echo &&
+rsync -ahu$Z $DEL --info=progress2 $1/Videos/ ~/Videos/

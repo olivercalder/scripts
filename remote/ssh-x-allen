@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -X caldero@allen.mathcs.carleton.edu

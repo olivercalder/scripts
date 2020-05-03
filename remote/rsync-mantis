@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILENAME=rsync-mantis
+
+if [ ! $2 ]; then
+    echo "USAGE: $FILENAME dest src"
+    exit
+fi
+
+rsync -azh --info=progress1 $2 caldero@mantis.mathcs.carleton.edu:~/$1

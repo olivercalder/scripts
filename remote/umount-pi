@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/pi
+sudo umount /mnt/pi

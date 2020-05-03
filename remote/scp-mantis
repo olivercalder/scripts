@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILENAME=scp-mantis
+
+if [ ! $2 ]; then
+    echo "USAGE: $FILENAME dest src"
+    exit
+fi
+
+scp $2 caldero@mantis.mathcs.carleton.edu:~/$1

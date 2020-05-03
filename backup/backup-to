@@ -1,0 +1,46 @@
+#!/bin/bash
+
+FILENAME=backup-to
+
+if [ ! $1 ] ; then
+    echo "USAGE: $FILENAME dest [-d]"
+    exit
+fi
+
+backup-config
+
+Z=""
+if [ echo $1 | grep '@' ]; then
+    Z="z";
+fi
+
+$DEL=""
+if [[ $2 == "-d" ]]; then
+    $DEL="--delete";
+fi
+
+echo &&
+echo &&
+echo "Backing up coding/ to $1" &&
+echo &&
+rsync -ah$Z $DEL --info=progress2 ~/coding/ $1/coding/ &&
+echo &&
+echo &&
+echo "Backing up Documents/ to $1" &&
+echo &&
+rsync -ah$Z $DEL --info=progress2 ~/Documents/ $1/Documents/ &&
+echo &&
+echo &&
+echo "Backing up Music/ to $1" &&
+echo &&
+rsync -ah$Z $DEL --info=progress2 ~/Music/ $1/Music/ &&
+echo &&
+echo &&
+echo "Backing up Pictures/ to $1" &&
+echo &&
+rsync -ah$Z $DEL --info=progress2 ~/Pictures/ $1/Pictures/ &&
+echo &&
+echo &&
+echo "Backing up Videos/ to $1" &&
+echo &&
+rsync -ah$Z $DEL --info=progress2 ~/Videos/ $1/Videos/

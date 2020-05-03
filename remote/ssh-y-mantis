@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -Y caldero@mantis.mathcs.carleton.edu

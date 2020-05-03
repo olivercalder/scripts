@@ -1,0 +1,9 @@
+#!/bin/bash
+
+backup-config
+
+echo
+echo
+echo "Backing up coding/ to mirage:~/Documents/coding"
+echo
+rsync -azh --delete --info=progress2 ~/coding/ caldero@mirage.mathcs.carleton.edu:/Accounts/caldero/Documents/coding/

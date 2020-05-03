@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ssh -Y pi@$PI_IP

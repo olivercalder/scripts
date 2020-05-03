@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILENAME=rsync-from-pi
+
+if [ ! $2 ]; then
+    echo "USAGE: $FILENAME src dest"
+    exit
+fi
+
+rsync -azh --info=progress1 pi@$PI_IP $PI_IP:~/$1 $2

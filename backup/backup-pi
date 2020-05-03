@@ -1,0 +1,7 @@
+#!/bin/bash
+
+backup-to pi@$PI_IP:/media/pi/Files -d
+echo
+echo
+echo "Copying configs to $PI_IP:~"
+scp ~/coding/raspberry-pi/.functionlist pi@$PI_IP:~

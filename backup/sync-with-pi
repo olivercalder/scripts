@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pull-from pi@$PI_IP:/media/pi/Files
+backup-to pi@$PI_IP:/media/pi/Files

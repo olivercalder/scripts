@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo
+echo
+echo "Backing up coding/ to mantis:~/Documents/coding"
+echo
+rsync -azh --info=progress2 caldero@mantis.mathcs.carleton.edu:/Accounts/caldero/Documents/coding/ ~/coding/
