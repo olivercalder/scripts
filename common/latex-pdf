@@ -1,0 +1,6 @@
+#!/bin/bash
+
+latex $1
+dvips $(echo $1 | sed s/.tex/.dvi/)
+ps2pdf $(echo $1 | sed s/.tex/.ps/)
+rm $(echo $1 | sed s/.tex//){.aux,.dvi,.log,.ps}
