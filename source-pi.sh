@@ -10,7 +10,7 @@ grep "$DIR/common" $PROFILECONF > /dev/null || {
     echo "fi" >> $PROFILECONF
 }
 
-grep '$HOME/coding/scripts/pi' $PROFILECONF > /dev/null || { 
+grep "$DIR/pi" $PROFILECONF > /dev/null || { 
     echo "" >> $PROFILECONF
     echo "if [ -d "$DIR/pi" ] ; then" >> $PROFILECONF
     echo "    PATH=$DIR/pi:"'$PATH' >> $PROFILECONF
