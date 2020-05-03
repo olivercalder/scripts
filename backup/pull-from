@@ -34,7 +34,7 @@ echo &&
 echo &&
 echo "Pulling Pictures/ from $1" &&
 echo &&
-rsync -ahu$Z $DEL --info=progress2 $1/Pictures/~/Pictures/  &&
+rsync -ahu$Z $DEL --info=progress2 $1/Pictures/ ~/Pictures/ &&
 echo &&
 echo &&
 echo "Pulling Videos/ from $1" &&
