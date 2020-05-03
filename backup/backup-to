@@ -10,13 +10,11 @@ fi
 backup-config
 
 Z=""
-if [ echo $1 | grep '@' ]; then
-    Z="z";
-fi
+{ echo $1 | grep '@'; } && Z="z"
 
-$DEL=""
+DEL=""
 if [[ $2 == "-d" ]]; then
-    $DEL="--delete";
+    DEL="--delete";
 fi
 
 echo &&
