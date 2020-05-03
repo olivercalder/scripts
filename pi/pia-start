@@ -3,7 +3,7 @@
 FILENAME=pia-start
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+[ $EUID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
 
 if [ pia-status -s -eq 0 ]; then
     read -p "Attach to existing session? [y/n] "ATTACH

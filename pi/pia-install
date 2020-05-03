@@ -3,7 +3,7 @@
 FILENAME=pia-install
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+[ $EUID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
 
 apt-get update
 apt-get upgrade

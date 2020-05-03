@@ -3,6 +3,6 @@
 FILENAME=pia-attach
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-[ $UID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
+[ $EUID -eq 0 ] || { sudo $DIR/$FILENAME; exit $?; }
 
 pia-status -s && { echo "No tmux pia session found."; exit 1; } || { tmux attach-session -t pia; exit $?; }
