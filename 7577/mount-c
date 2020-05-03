@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/c
+sudo mount -t ntfs-3g /dev/nvme0n1p3 /mnt/c -o uid=1000,gid=1000,umask=0022

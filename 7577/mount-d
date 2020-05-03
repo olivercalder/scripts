@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/d
+sudo mount -t ntfs-3g /dev/sda2 /mnt/d -o uid=1000,gid=1000,umask=0022

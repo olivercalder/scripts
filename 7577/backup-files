@@ -1,0 +1,5 @@
+#!/bin/bash
+
+backup-d
+backup-coding-mirage
+backup-pi

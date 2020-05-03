@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mount-d
+backup-to /mnt/d -d
+umount-d
