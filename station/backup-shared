@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mount-shared
+backup-to /mnt/Shared -d
+umount-shared

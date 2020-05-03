@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo umount /mnt/Seagate
+sudo cryptsetup close seagate
+#sudo rmdir /mnt/Seagate

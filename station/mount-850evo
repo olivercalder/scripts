@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/850Evo
+sudo cryptsetup open /dev/disk/by-partuuid/5949be2d-01 850evo
+sudo mount /dev/mapper/850evo /mnt/850Evo

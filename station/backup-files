@@ -1,0 +1,6 @@
+#!/bin/bash
+
+backup-850evo
+backup-shared
+backup-coding-mirage
+backup-pi

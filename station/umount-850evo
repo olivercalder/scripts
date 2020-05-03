@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo umount /mnt/850Evo
+sudo cryptsetup close 850evo
+#sudo rmdir /mnt/850Evo

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+mount-850evo
+backup-to /mnt/850Evo -d
+umount-850evo

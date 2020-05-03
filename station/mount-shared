@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo mkdir -p /mnt/Shared
+sudo mount -t ntfs-3g /dev/disk/by-partuuid/04ccb5ed-01 /mnt/Shared -o uid=1000,gid=1000,umask=0022
