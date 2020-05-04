@@ -7,4 +7,4 @@ if [ ! $2 ]; then
     exit
 fi
 
-scp -r $2 pi@$PI_IP $PI_IP:~/$1
+scp -r $2 pi@$PI_IP:~/$1
