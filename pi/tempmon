@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TEMP_INTERVAL=1
+if [ $1 ]; then TEMP_INTERVAL=$1; fi
+while true; do vcgencmd measure_temp | grep -o '[0-9]*\.[0-9]*'; sleep $TEMP_INTERVAL; done
