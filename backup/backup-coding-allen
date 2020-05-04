@@ -1,9 +1,0 @@
-#!/bin/bash
-
-backup-config
-
-echo
-echo
-echo "Backing up coding/ to allen:~/Documents/coding"
-echo
-rsync -azh --delete --info=progress2 ~/coding/ caldero@allen.mathcs.carleton.edu:/Accounts/caldero/Documents/coding/
