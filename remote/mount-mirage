@@ -1,4 +1,4 @@
-$!/bin/bash
+#!/bin/bash
 
 sudo mkdir -p /mnt/mirage
 sudo sshfs -o allow_other caldero@mirage.mathcs.carleton.edu:/ /mnt/mirage
