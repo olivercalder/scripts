@@ -1,5 +1,8 @@
 #!/bin/bash
 
 mount-850evo
+backup-check /mnt/850Evo
+echo
+read -p "Press <Enter> to continue, or ^C to cancel" &&
 backup-to /mnt/850Evo -d
 umount-850evo

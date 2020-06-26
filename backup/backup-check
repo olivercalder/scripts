@@ -1,0 +1,26 @@
+#!/bin/bash
+
+FILENAME=backup-check
+
+if [ ! $1 ] ; then
+    echo "USAGE: $FILENAME dest"
+    exit 0
+fi
+
+echo Checking for modified files against $1 ...
+echo
+echo ~/coding:
+rsync -nahi --info=name1 ~/coding/ $1/coding/ &&
+echo &&
+echo ~/Documents: &&
+rsync -nahi --info=name1 ~/Documents/ $1/Documents/ &&
+echo &&
+echo ~/Music: &&
+rsync -nahi --info=name1 ~/Music/ $1/Music/ &&
+echo &&
+echo ~/Pictures: &&
+rsync -nahi --info=name1 ~/Pictures/ $1/Pictures/ &&
+echo &&
+echo ~/Videos: &&
+rsync -nahi --info=name1 ~/Videos/ $1/Videos/ && exit 1
+exit 0
