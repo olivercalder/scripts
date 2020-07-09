@@ -1,0 +1,19 @@
+#!/bin/bash
+
+echo_usage () {
+    echo "Carleton VPN Usage:"
+    echo "    Connect:      cvpn -c"
+    echo "    Disconnect:   cvpn -d"
+}
+
+if [[ $1 != "" ]]; then
+    if [[ $1 == "-c" ]]; then
+        globalprotect connect --portal gateway.carleton.edu
+    elif [[ $1 == "-d" ]]; then
+        globalprotect disconnect
+    else
+        echo_usage
+    fi
+else
+    echo_usage
+fi
