@@ -3,3 +3,4 @@
 cp ~/.functionlist ~/coding/Pop
 cp /etc/vim/vimrc ~/coding/Pop
 cp ~/.tmux.conf ~/coding/Pop
+cp ~/.zshrc ~/coding/zsh
