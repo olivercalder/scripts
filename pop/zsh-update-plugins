@@ -1,0 +1,16 @@
+#!/bin/bash
+
+CUSTOM="$HOME/coding/zsh/oh-my-zsh/custom"
+
+if [ -d $CUSTOM ]; then
+    cd $CUSTOM/plugins
+    for fname in $(ls -1); do
+        if [[ $fname != "example" ]]; then
+            echo $fname
+            cd $fname
+            git pull -v
+            cd ..
+            echo
+        fi
+    done
+fi

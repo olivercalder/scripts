@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+
+import sys
+
+if len(sys.argv) != 2:
+    print('USAGE: python3 {} hexnumber'.format(sys.argv[0]))
+    exit(1)
+
+hex_str = sys.argv[1].lstrip('0x')
+
+hex_vals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f']
+
+int_addr = 0
+
+for char in hex_str:
+    h = char.lower()
+    assert(h in hex_vals)
+    int_addr <<= 4
+    int_addr += hex_vals.index(h)
+
+oct_str = str(oct(int_addr)).lstrip('0o')
+oct_str = '0' * (16 - len(oct_str)) + oct_str
+oct_str_fmt = '{}_{}_{}_{}_{}'.format(oct_str[:3], oct_str[3:6], oct_str[6:9], oct_str[9:12], oct_str[12:])
+print(oct_str_fmt)
