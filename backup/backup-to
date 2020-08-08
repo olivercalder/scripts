@@ -7,7 +7,9 @@ if [ ! $1 ] ; then
     exit
 fi
 
-backup-config
+if [ $(which backup-config) ]; then
+    backup-config
+fi
 
 Z=""
 { echo $1 | grep '@'; } && Z="z"
