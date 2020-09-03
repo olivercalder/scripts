@@ -1,0 +1,67 @@
+#!/bin/sh
+
+usage() { echo "USAGE: $0 [OPTIONS] NAME [NAME] [...]
+
+OPTIONS:
+    -h                      display help
+    -g                      create as executable in Go projects directory
+    -l                      create as library in Go projects directory
+    -s                      create standalone program (default)
+" 1>&2; exit 1; }
+
+PROJ=
+ISLIB=
+
+while getopts ":hgls" OPT; do
+    case "$OPT" in
+        h)
+            usage
+            ;;
+        g)
+            PROJ=1
+            ISLIB=
+            ;;
+        l)
+            PROJ=
+            ISLIB=1
+            ;;
+        s)
+            PROJ=
+            ISLIB=
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+SOME=
+for name in "$@"; do
+    SOME=1
+    fullpath="$name"
+    [ -n "$ISLIB" -o -n "$PROJ" ] && fullpath="$GOPROJ/src/$name"
+    if [ -d "$fullpath" ]; then
+        echo "WARNING: Go project $fullpath already exists; skipping."
+    else
+        mkdir -p "$fullpath"
+        cd "$fullpath" || exit 2
+        go mod init "$name"
+        filename="$(basename $name).go"
+        [ -n "$ISLIB" ] && filename="Main.go"
+        pkg="main"
+        [ -n "$ISLIB" ] && pkg="$(basename $name)"
+        echo "package $pkg" >> "$filename"
+        echo '' >> "$filename"
+        echo 'import "fmt"' >> "$filename"
+        echo '' >> "$filename"
+        echo 'func main() {' >> "$filename"
+        echo '    fmt.Println("Hello World!")' >> "$filename"
+        echo '}' >> "$filename"
+    fi
+done
+
+[ -z "$SOME" ] && usage
+
+exit 0

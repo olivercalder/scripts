@@ -1,0 +1,33 @@
+#!/bin/sh
+
+usage() { echo "USAGE: $0 [OPTIONS] NAME [NAME] [...]
+
+OPTIONS:
+    -h                      display help
+" 1>&2; exit 1; }
+
+while getopts ":hgls" OPT; do
+    case "$OPT" in
+        h)
+            usage
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+SOME=
+for name in "$@"; do
+    SOME=1
+    srcpath="$GOPROJ/src/$name"
+    binpath="$GOPROJ/bin/$name"
+    rm -r "$srcpath"
+    rm "$binpath"
+done
+
+[ -z "$SOME" ] && usage
+
+exit 0
