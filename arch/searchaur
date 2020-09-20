@@ -1,0 +1,3 @@
+#!/bin/sh
+
+xdg-open "https://aur.archlinux.org/packages/?O=0&SeB=nd&K=$1&outdated=&SB=n&SO=a&PP=50&do_Search=Go"

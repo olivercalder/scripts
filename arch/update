@@ -1,0 +1,44 @@
+#!/bin/sh
+
+BUILDS_DIR="$HOME/Builds"
+
+ping -w 1 http://google.com && {
+    sudo pacman -Syu
+    WD=`pwd`
+    cd $BUILDS_DIR
+    PKGS=`ls -1`
+    for PKG in $PKGS; do
+        echo
+        cd $PKG
+        if [[ $1 == "-r" ]]; then
+            echo "Rebuilding $PKG..."
+            echo
+            yes | makepkg -si
+            echo
+            echo "Finished $PKG ."
+            echo
+            cd $BUILDS_DIR
+        else
+            OUTPUT=`git pull`
+            if [[ $OUTPUT == "Already up to date." ]]; then
+                echo "$PKG already up to date."
+            else
+                echo "Update available for $PKG"
+                vim PKGBUILD
+                echo
+                read -p "Would you like to update $PKG? [y/n] " CHOICE
+                if [[ $CHOICE == "Y" || $CHOICE == "y" ]]; then
+                    makepkg -si
+                    echo
+                    echo "Updated $PKG"
+                else
+                    echo
+                    echo "$PKG not updated"
+                fi
+            fi
+            cd $BUILDS_DIR
+        fi
+    done
+    cd "$WD"
+} || echo "No network connection"
+

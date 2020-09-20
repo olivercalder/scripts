@@ -1,0 +1,6 @@
+#!/bin/sh
+
+cp ~/.functionlist ~/coding/Arch
+cp ~/.vimrc ~/coding/Arch
+cp ~/.tmux.conf ~/.coding/Arch
+cp ~/.zshrc ~/coding/zsh

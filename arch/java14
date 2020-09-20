@@ -1,0 +1,9 @@
+#!/bin/sh
+
+sudo rm /usr/lib/jvm/default
+sudo ln -s java-13-openjdk /usr/lib/jvm/default
+sudo rm /usr/lib/jvm/default-runtime
+sudo ln -s java-13-openjdk /usr/lib/jvm/default-runtime
+echo Java versions updated:
+java -version
+javac -version
