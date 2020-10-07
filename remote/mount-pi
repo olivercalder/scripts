@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo mkdir -p /mnt/pi
-sudo sshfs -o allow_other pi@$PI_IP:/ /mnt/pi
+sudo sshfs -o allow_other pi@pi.calder.dev:/ /mnt/pi

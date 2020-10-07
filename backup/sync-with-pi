@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
-pull-from pi@$PI_IP:/media/pi/Files
-backup-to pi@$PI_IP:/media/pi/Files
+pull-from pi@pi.calder.dev:/media/pi/Files
+backup-to pi@pi.calder.dev:/media/pi/Files

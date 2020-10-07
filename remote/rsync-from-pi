@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FILENAME=rsync-from-pi
 
@@ -7,4 +7,4 @@ if [ ! $2 ]; then
     exit
 fi
 
-rsync -azh --info=progress1 pi@$PI_IP:~/$1 $2
+rsync -azh --info=progress1 pi@pi.calder.dev:~/$1 $2

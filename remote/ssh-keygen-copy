@@ -1,8 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
 ssh-keygen -f ~/.ssh/id_rsa -t rsa -b 4096
-ssh-copy-id -i ~/.ssh/id_rsa pi@$PI_IP
-ssh-copy-id -i ~/.ssh/id_rsa caldero@mirage.mathcs.carleton.edu
+ssh-copy-id -i ~/.ssh/id_rsa root@calder.dev
+ssh-copy-id -i ~/.ssh/id_rsa oac@calder.dev
+ssh-copy-id -i ~/.ssh/id_rsa pi@pi.calder.dev
+ssh-copy-id -i ~/.ssh/id_rsa oac@pi.calder.dev
+ssh-copy-id -i ~/.ssh/id_rsa caldero@mantis.mathcs.carleton.edu
 ssh-copy-id -i ~/.ssh/id_rsa caldero@allen.mathcs.carleton.edu
 ssh-copy-id -i ~/.ssh/id_rsa krlxlaravel@krlx.org
 ssh-copy-id -i ~/.ssh/id_rsa krlxdj@garnet.krlx.org

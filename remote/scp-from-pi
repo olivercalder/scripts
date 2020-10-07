@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FILENAME=scp-from-pi
 
@@ -7,4 +7,4 @@ if [ ! $2 ]; then
     exit
 fi
 
-scp pi@$PI_IP:~/$1 $2
+scp pi@pi.calder.dev:~/$1 $2
