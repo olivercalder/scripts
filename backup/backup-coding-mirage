@@ -1,8 +1,4 @@
-#!/bin/bash
-
-if [ $(which backup-config) ]; then
-    backup-config
-fi
+#!/bin/sh
 
 echo
 echo

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 FILENAME=backup-to
 
@@ -7,15 +7,11 @@ if [ ! $1 ] ; then
     exit
 fi
 
-if [ $(which backup-config) ]; then
-    backup-config
-fi
-
 Z=""
 { echo $1 | grep '@'; } && Z="z"
 
 DEL=""
-if [[ $2 == "-d" ]]; then
+if [ $2 = "-d" ]; then
     DEL="--delete";
 fi
 

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-cp ~/.functionlist ~/coding/Pop
-cp ~/.vimrc ~/coding/Pop
-cp ~/.tmux.conf ~/coding/Pop
-cp ~/.zshrc ~/coding/zsh
