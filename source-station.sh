@@ -23,13 +23,6 @@ grep '$HOME/coding/scripts/remote' "$PROFILECONF" > /dev/null || {
     echo 'fi' >> "$PROFILECONF"
 }
 
-grep '$HOME/coding/scripts/pop' "$PROFILECONF" > /dev/null || { 
-    echo "" >> "$PROFILECONF"
-    echo 'if [ -d "$HOME/coding/scripts/pop" ] ; then' >> "$PROFILECONF"
-    echo '    PATH="$HOME/coding/scripts/pop:$PATH"' >> "$PROFILECONF"
-    echo 'fi' >> "$PROFILECONF"
-}
-
 grep '$HOME/coding/scripts/station' "$PROFILECONF" > /dev/null || { 
     echo "" >> "$PROFILECONF"
     echo 'if [ -d "$HOME/coding/scripts/station" ] ; then' >> "$PROFILECONF"
