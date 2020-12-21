@@ -1,4 +1,0 @@
-#!/bin/bash
-
-sudo umount /mnt/mirage
-sudo rmdir /mnt/mirage

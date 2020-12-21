@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sudo umount /mnt/pi
 sudo rmdir /mnt/pi

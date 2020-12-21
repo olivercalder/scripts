@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo mkdir -p /mnt/mantis
+sudo sshfs -o allow_other caldero@mantis.mathcs.carleton.edu:/ /mnt/mantis

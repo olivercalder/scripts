@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 
 backup-850evo
 backup-shared
-backup-coding-mirage
+backup-coding-mantis
 backup-pi
