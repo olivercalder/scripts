@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "Warning: this will erase all contents of the following disks:"
+echo
+
+ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B
+ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL
+
+echo
+echo "Press <Ctrl>+C to cancel or <Enter> to continue."
+
+read INPUT
+
+echo "Formatting disks..."
+echo
+
+sudo mkfs.btrfs -d raid1 -m raid1 -L bucket --checksum xxhash -f /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+sudo btrfs check /dev/disk/by-label/bucket
+
+sudo mkdir -p /mnt/bucket
+sudo mount -o compress=zstd /dev/disk/by-label/bucket /mnt/bucket
