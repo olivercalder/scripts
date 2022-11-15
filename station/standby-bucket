@@ -1,0 +1,4 @@
+#!/bin/sh
+
+sudo hdparm -y /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B
+sudo hdparm -y /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL

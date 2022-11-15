@@ -1,3 +1,9 @@
 #!/bin/sh
 
 sudo umount /mnt/bucket
+sudo cryptsetup close luks-bucket-1 || exit 1
+sudo cryptsetup close luks-bucket-2 || exit 1
+
+sleep 1
+
+standby-bucket

@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/bash
+# bash needed for simple password reading
+
+which hdparm > /dev/null || { echo "ERROR: command not found: hdparm" ; exit 1 ; }
+which cryptsetup > /dev/null || { echo "ERROR: command not found: cryptsetup" ; exit 1 ; }
+which mkfs.btrfs > /dev/null || { echo "ERROR: command not found: mkfs.btrfs" ; exit 1 ; }
 
 echo "Warning: this will erase all contents of the following disks:"
 echo
@@ -7,11 +12,46 @@ ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B
 ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL
 
 echo
-echo "Press <Ctrl>+C to cancel or <Enter> to continue."
+read -p "Are you sure? (Type 'yes' in capital letters): " CONFIRMATION
 
-read INPUT
+if [ "$CONFIRMATION" != "YES" ] ; then
+    echo "Operation aborted."
+    exit 1
+fi
 
-echo "Formatting disks..."
+# This isn't particularly secure, but it's sufficient for this purpose
+read -rsp "Enter LUKS passphrase: " PWD1
+echo
+read -rsp "Verify passphrase: " PWD2
 echo
 
-sudo mkfs.btrfs -d raid1 -m raid1 -L bucket --checksum xxhash -f /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL
+if [ "$PWD1" != "$PWD2" ] ; then
+    echo "ERROR: Passphrass do not match."
+    exit 1
+fi
+
+echo "Unmounting drives (if mounted)..."
+umount-bucket
+
+echo "Creating new GPT tables..."
+sudo parted -s /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B mklabel gpt
+sudo parted -s /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL mklabel gpt
+
+echo "Creating new blank partitions..."
+sudo parted -s /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B mkpart bucket-part-1 '0%' '100%'
+sudo parted -s /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL mkpart bucket-part-2 '0%' '100%'
+
+echo "Formatting LUKS partitions..."
+echo "$PWD1" | sudo cryptsetup --type luks2 luksFormat /dev/disk/by-partlabel/bucket-part-1 -
+echo "$PWD1" | sudo cryptsetup --type luks2 luksFormat /dev/disk/by-partlabel/bucket-part-2 -
+
+echo "$PWD1" | sudo cryptsetup --key-file - open /dev/disk/by-partlabel/bucket-part-1 luks-bucket-1
+echo "$PWD1" | sudo cryptsetup --key-file - open /dev/disk/by-partlabel/bucket-part-2 luks-bucket-2
+
+echo "Creating BTRFS partitions..."
+sudo mkfs.btrfs -d raid1 -m raid1 -L bucket --checksum xxhash -f /dev/mapper/luks-bucket-1 /dev/mapper/luks-bucket-2
+
+sudo cryptsetup close luks-bucket-1
+sudo cryptsetup close luks-bucket-2
+
+echo "Done."

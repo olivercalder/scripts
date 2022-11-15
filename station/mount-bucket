@@ -1,4 +1,14 @@
-#!/bin/sh
+#!/bin/bash
+# bash needed for simple password reading
+
+sudo echo "Want to ask for sudo before getting LUKS password" > /dev/null
+
+# This isn't particularly secure, but it's sufficient for this purpose
+read -rsp "Enter LUKS passphrase: " PWD1
+echo
+
+echo "$PWD1" | sudo cryptsetup --key-file - open /dev/disk/by-partlabel/bucket-part-1 luks-bucket-1 || exit 0
+echo "$PWD1" | sudo cryptsetup --key-file - open /dev/disk/by-partlabel/bucket-part-2 luks-bucket-2 || exit 0
 
 sudo btrfs check /dev/disk/by-label/bucket
 
