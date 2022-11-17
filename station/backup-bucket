@@ -1,0 +1,29 @@
+#!/bin/sh
+
+SRC_DIR="$HOME/Nextcloud/"
+
+DEST_ROOT_DIR="/mnt/bucket/backups/$USER"
+
+LINK_DIR="$DEST_ROOT_DIR/Nextcloud"
+
+DEST_DIR="$LINK_DIR-$(date --iso-8601=ns)/"
+
+if [ ! -d "$SRC_DIR" ] ; then
+    echo "ERROR: source directory '$SRC_DIR' does not exist"
+    exit 1
+fi
+
+mount-bucket
+
+mkdir -p "$DEST_ROOT_DIR"
+
+if [ -d "$LINK_DIR" ] ; then
+    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' --link-dest="$LINK_DIR" "$SRC_DIR" "$DEST_DIR"
+    rm "$LINK_DIR"
+else
+    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' "$SRC_DIR" "$DEST_DIR"
+fi
+
+ln -s "$DEST_DIR" "$LINK_DIR"
+
+umount-bucket
