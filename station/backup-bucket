@@ -33,10 +33,10 @@ else
 fi
 
 if [ -d "$LINK_DIR" ] ; then
-    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' --link-dest="$LINK_DIR" "$SRC_DIR" "$DEST_DIR"
+    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' --exclude '.*.swp' --link-dest="$LINK_DIR" "$SRC_DIR" "$DEST_DIR"
     rm "$LINK_DIR"
 else
-    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' "$SRC_DIR" "$DEST_DIR"
+    rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' --exclude '.*.swp' "$SRC_DIR" "$DEST_DIR"
 fi
 
 ln -s "$DEST_DIR" "$LINK_DIR"
