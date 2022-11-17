@@ -2,11 +2,15 @@
 
 SRC_DIR="$HOME/Nextcloud/"
 
+CODING_SRC_DIR="git@git.calder.dev:coding.git"
+
 DEST_ROOT_DIR="/mnt/bucket/backups/$USER"
 
 LINK_DIR="$DEST_ROOT_DIR/Nextcloud"
 
 DEST_DIR="$LINK_DIR-$(date --iso-8601=ns)/"
+
+CODING_DEST_DIR="$DEST_ROOT_DIR/coding"
 
 if [ ! -d "$SRC_DIR" ] ; then
     echo "ERROR: source directory '$SRC_DIR' does not exist"
@@ -16,6 +20,17 @@ fi
 mount-bucket
 
 mkdir -p "$DEST_ROOT_DIR"
+
+if [ -d "$CODING_DEST_DIR" ] ; then
+    cd "$CODING_DEST_DIR"
+    git pull --recurse-submodules
+    cd -
+else
+    git clone --recurse-submodules "$CODING_SRC_DIR" "$CODING_DEST_DIR"
+    cd "$CODING_DEST_DIR"
+    git submodule foreach 'git switch master || git switch main'
+    cd -
+fi
 
 if [ -d "$LINK_DIR" ] ; then
     rsync -ah --info=progress2 --exclude '.owncloudsync*' --exclude '.sync_*' --exclude '.~*' --link-dest="$LINK_DIR" "$SRC_DIR" "$DEST_DIR"
