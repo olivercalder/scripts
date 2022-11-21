@@ -8,8 +8,8 @@ which mkfs.btrfs > /dev/null || { echo "ERROR: command not found: mkfs.btrfs" ; 
 echo "Warning: this will erase all contents of the following disks:"
 echo
 
-ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B
-ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL
+ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B || exit 1
+ls -l /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL || exit 1
 
 echo
 read -p "Are you sure? (Type 'yes' in capital letters): " CONFIRMATION
@@ -32,6 +32,10 @@ fi
 
 echo "Unmounting drives (if mounted)..."
 umount-bucket
+
+echo "Setting drive idle standby to 10 minutes..."
+sudo hdparm -S 120 /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B
+sudo hdparm -S 120 /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ16AFL
 
 echo "Creating new GPT tables..."
 sudo parted -s /dev/disk/by-id/ata-ST10000NM0478-2H7100_ZHZ3GQ1B mklabel gpt
