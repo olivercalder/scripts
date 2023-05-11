@@ -1,0 +1,34 @@
+#!/bin/sh
+
+PROFILE_NAME="n3fyn66p.default"
+
+ROOT_DIR="/home/oac/snap/firefox/common/.mozilla/firefox/$PROFILE_NAME"
+CACHE_DIR="/home/oac/snap/firefox/common/.cache/mozilla/firefox/$PROFILE_NAME"
+
+BACKUP_DIR="/home/oac/.local/share/firefox-profile-backups"
+
+ROOT_BAK="$BACKUP_DIR/root-$PROFILE_NAME.tar.zstd"
+CACHE_BAK="$BACKUP_DIR/cache-$PROFILE_NAME.tar.zstd"
+
+cd /
+
+if [ -f "$ROOT_BAK" ] ; then
+	echo "Restoring $ROOT_BAK ..."
+	rm -rf "$ROOT_DIR.bak"
+	mv "$ROOT_DIR" "$ROOT_DIR.bak"
+	tar -x --zstd -f "$ROOT_BAK"
+else
+	echo "File doesn't exist: $ROOT_BAK"
+fi
+
+if [ -f "$CACHE_BAK" ] ; then
+	echo "Restoring $CACHE_BAK ..."
+	rm -rf "$CACHE_DIR.bak"
+	mv "$CACHE_DIR" "$CACHE_DIR.bak"
+	tar -x --zstd -f "$CACHE_BAK"
+else
+	echo "File doesn't exist: $CACHE_BAK"
+fi
+
+echo done
+
