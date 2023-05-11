@@ -21,14 +21,14 @@ fi
 
 if [ -d "$ROOT_DIR" ] ; then
 	echo "Creating $ROOT_BAK ..."
-	time tar -c -I "zstd -T0" -f "$ROOT_BAK" "$ROOT_DIR"
+	tar -c -I "zstd -T0" -f "$ROOT_BAK" "$ROOT_DIR"
 else
 	echo "Profile doesn't exist: $ROOT_DIR"
 fi
 
 if [ -d "$CACHE_DIR" ] ; then
 	echo "Creating $CACHE_BAK ..."
-	time tar -c -I "zstd -T0" -f "$CACHE_BAK" "$CACHE_DIR"
+	tar -c -I "zstd -T0" -f "$CACHE_BAK" "$CACHE_DIR"
 else
 	echo "Profile doesn't exist: $CACHE_DIR"
 fi
