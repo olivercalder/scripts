@@ -17,7 +17,12 @@ if [ ! -d "$SRC_DIR" ] ; then
     exit 1
 fi
 
-mount-bucket
+lsblk | grep "/mnt/bucket" > /dev/null
+MOUNT_AND_UNMOUNT=$?
+
+if [ $MOUNT_AND_UNMOUNT -eq 1 ] ; then
+    mount-bucket
+fi
 
 mkdir -p "$DEST_ROOT_DIR"
 
@@ -41,4 +46,6 @@ fi
 
 ln -s "$DEST_DIR" "$LINK_DIR"
 
-umount-bucket
+if [ $MOUNT_AND_UNMOUNT -eq 1 ] ; then
+    umount-bucket
+fi
