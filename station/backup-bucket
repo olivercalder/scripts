@@ -2,7 +2,7 @@
 
 SRC_DIR="$HOME/Nextcloud/"
 
-CODING_SRC_DIR="git@git.calder.dev:coding.git"
+CODING_SRC_DIR="ssh://git@git.calder.dev:2414/~git/coding.git"
 
 DEST_ROOT_DIR="/mnt/bucket/backups/$USER"
 
