@@ -1,6 +1,15 @@
 #!/bin/sh
 
-PROFILE_NAME="n3fyn66p.default"
+T14S_PROFILE_NAME="n3fyn66p.default"
+XPS15_PROFILE_NAME="4wn9j1dk.default"
+
+case "$(hostname)" in
+	t14s*) PROFILE_NAME="$T14S_PROFILE_NAME" ;;
+	xps15*) PROFILE_NAME="$XPS15_PROFILE_NAME" ;;
+	*)
+		echo "ERROR: unknown hostname: cannot determine firefox profile"
+		exit 1
+esac
 
 ROOT_DIR="/home/oac/snap/firefox/common/.mozilla/firefox/$PROFILE_NAME"
 CACHE_DIR="/home/oac/snap/firefox/common/.cache/mozilla/firefox/$PROFILE_NAME"
